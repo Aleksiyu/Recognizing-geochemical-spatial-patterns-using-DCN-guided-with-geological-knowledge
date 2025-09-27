@@ -19,7 +19,6 @@ This code was developed and tested in the following environment:
 ## File Structure & Functions
 ```
 research/GK-DCN/
-├── README.md                #  This documentation file
 ├── CNN.py                   #  Training and evaluating models of regular convolutional networks (CNNs)
 ├── DCN.py                   #  Training and evaluation models of Deformable Convolution (DCN)  
 ├── GK_CNN.py                #  CNN model constrained by integrated geological knowledge (GK)
