@@ -20,6 +20,7 @@ from sklearn.metrics import (
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
+# Load Data
 train_data = np.load("train_data.npy")             # Shape: (N, 9, 9, 39)
 train_labels = np.load("train_labels.npy")
 verify_data = np.load("verify_data.npy")           # Shape: (M, 9, 9, 39)
@@ -28,9 +29,11 @@ verify_labels = np.load("verify_labels.npy")
 window_size = 9
 all_channel = 39
 
+# Define a custom convolutional neural network model
 class CustomModel(nn.Module):
     def __init__(self):
         super(CustomModel, self).__init__()
+        # Input channels: 39, output channels: 64, convolution kernel: 3x3, keep size ('same' padding)
         self.conv1 = nn.Conv2d(in_channels=all_channel, out_channels=64, kernel_size=(3, 3), padding='same')
         self.relu1 = nn.ReLU()
         self.bn1 = nn.BatchNorm2d(64)
@@ -78,6 +81,7 @@ train_labels_tensor = torch.from_numpy(train_labels).float().to(device)
 verify_data_tensor = torch.from_numpy(verify_data).float().to(device)
 verify_labels_tensor = torch.from_numpy(verify_labels).float().to(device)
 
+# Model Training
 history = []
 for epoch in range(30):
     model.train()
@@ -119,6 +123,7 @@ plt.legend()
 plt.show()
 
 
+# Perform full-image prediction using the trained model
 model = CustomModel().to(device)
 model.load_state_dict(torch.load('model_cnn.pth', map_location=device))
 model.eval()
@@ -194,7 +199,7 @@ y_true_final = y_true_binary
 y_prob_final = np.array(probability_value)
 print(f"Number of valid samples for final evaluation: {len(y_true_final)}")
 
-
+# Calculate the FPR, TPR, and thresholds required for the ROC curve
 fpr, tpr, thresholds = roc_curve(y_true_final, y_prob_final)
 roc_auc = auc(fpr, tpr)
 print(f"\nAUC (Area Under Curve): {roc_auc:.4f}")
@@ -252,4 +257,5 @@ plt.ylabel('True Positive Rate (TPR)')
 plt.title('Receiver Operating Characteristic (ROC) Curve')
 plt.legend(loc='lower right', prop={"family": "Times New Roman", "size": 12})
 plt.grid(True)
+
 plt.show()
