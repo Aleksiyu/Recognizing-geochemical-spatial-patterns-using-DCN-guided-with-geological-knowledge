@@ -7,7 +7,7 @@ This code was developed and tested in the following environment:
 **PyTorch**: 2.4.1  **TensorFlow**:2.4(CUDA 11.8+ recommended for GPU acceleration)  
 
 ## Requirements
-- NumPy
+- NumPy--1.19.5
 - Pandas
 - Matplotlib
 - Scikit-learn
