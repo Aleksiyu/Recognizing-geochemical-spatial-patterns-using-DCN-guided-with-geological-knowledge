@@ -1,6 +1,7 @@
 """
 Grad-CAM for CNN
-Display the class activation patterns of the first ordinary convolutional layer
+Display the class activation patterns of the first ordinary convolutional layer.
+Aiming to use Grad-CAM technology to visualize and analyze the input features that the model relies on when detecting geological anomalies.
 """
 
 
@@ -237,3 +238,4 @@ else:
 
 
 print("All mining point Grad-CAM generation completed.")
+
