@@ -35,6 +35,8 @@ def check_data_files():
 if not check_data_files():
     pass
 
+
+# Load Data
 train_data = np.load("train_data.npy")            # Shape: (N, 9, 9, 39)
 train_labels = np.load("train_labels.npy")
 verify_data = np.load("verify_data.npy")          # Shape: (M, 9, 9, 39)
@@ -65,6 +67,7 @@ model.compile(
     loss='binary_crossentropy',
     metrics=['acc'])
 
+# Model Training
 history = model.fit(
     train_data,
     train_labels,
@@ -125,10 +128,11 @@ def make_gradcam_heatmap(img_array, model, last_conv_layer_name, pred_index=None
     return heatmap.numpy()
 
 def process_sample_gradcam(model, sample_data_with_batch, sample_name, last_conv_layer_name):
-    """Process a single sample, generate Grad-CAM, and save it"""
+    # Process a single sample, generate Grad-CAM, and save it
     print(f"Processing sample:{sample_name}")
     input_tensor = tf.convert_to_tensor(sample_data_with_batch, dtype=tf.float32)
 
+    # Generate Grad-CAM heatmap
     cam = make_gradcam_heatmap(input_tensor, model, last_conv_layer_name)
     input_data_np = sample_data_with_batch[0] # (H, W, C)
     fig, axes = plt.subplots(1, 2, figsize=(12, 5))
@@ -160,6 +164,7 @@ def process_sample_gradcam(model, sample_data_with_batch, sample_name, last_conv
     cbar2.set_label('Contribution Score')
 
     plt.tight_layout()
+    # Save result image
     OUTPUT_DIR = 'Grad-CAM_CNN'
     output_path = f'{OUTPUT_DIR}/{sample_name}_gradcam.png'
     plt.savefig(output_path, dpi=300, bbox_inches='tight')
@@ -167,14 +172,16 @@ def process_sample_gradcam(model, sample_data_with_batch, sample_name, last_conv
     print(f" Saved: {output_path}")
 
 
-
+# Generate Grad-CAM for all known mining sites
 model = tf.keras.models.load_model('model_cnn.h5')
+# Determine the target convolutional layer
 TARGET_CONV_LAYER_NAME = model.layers[0].name 
 
 print("Start generating Grad-CAM for all known mining points (using center point coordinates)...")
 
 try:
     all_array = np.load('Geochemical_array.npy')
+    # Load label images (including mineral point information)
     label_img = cv.imread('./New_data/label/Au_deposits0.tif', cv.IMREAD_GRAYSCALE) 
     if label_img is None:
         label_img = cv.imread('Au_deposits0.tif', cv.IMREAD_GRAYSCALE) 
@@ -203,6 +210,7 @@ if num_points == 0:
 else:
     generated_count = 0
     half_window = window_size // 2
+    # Traverse all the discovered mining sites
     for i in range(num_points):
         r_top_left = mining_point_rows_cropped[i]
         c_top_left = mining_point_cols_cropped[i]
@@ -226,5 +234,6 @@ else:
             print(f"Warning: ({r_top_left}, {c_top_left})")
 
     print(f"Completed {generated_count}/{num_points} mining point Grad-CAM generation.")
+
 
 print("All mining point Grad-CAM generation completed.")
