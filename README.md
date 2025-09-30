@@ -4,17 +4,17 @@ This study presents a model architecture that incorporates geological knowledge 
 ## Environment
 This code was developed and tested in the following environment:
 **Python**: 3.8  
-**PyTorch**: 2.4.1  **TensorFlow**:2.4(CUDA 11.8+ recommended for GPU acceleration)  
+**PyTorch**: 2.4.1  **TensorFlow**:2.4.0(CUDA 11.8+ recommended for GPU acceleration)  
 
 ## Requirements
 - NumPy--1.19.5
-- Pandas
-- Matplotlib
-- Scikit-learn
-- OpenCV
-- PyTorch
-- TensorFlow
-- torchvision.ops.DeformConv2d
+- Pandas--1.1.5
+- Matplotlib--3.5.1
+- Scikit-learn--1.3.2
+- OpenCV--4.10.0
+- PyTorch--2.4.1
+- torchvision--0.19.1
+- TensorFlow--2.4.0
 
 ## File Structure & Functions
 ```
