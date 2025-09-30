@@ -1,5 +1,5 @@
 """
-Create a CNN model
+Implemented a binary classification model based on a Convolutional Neural Network (CNN) for geochemical anomaly detection.
 """
 
 
@@ -259,3 +259,4 @@ plt.legend(loc='lower right', prop={"family": "Times New Roman", "size": 12})
 plt.grid(True)
 
 plt.show()
+
