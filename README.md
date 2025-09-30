@@ -27,6 +27,3 @@ research/GK-DCN/
 ├── DCN_CAM.py               #  Perform Grad-CAM visualization on DCN for model interpretation
 ├── DCN_Offset.py            #  Visualization script for the DCN model. Used to extract and plot the sampling point offset fields learned by the DCN.
 ```
-     
-## License
-This project is licensed under the MIT License. See the LICENSE file for more details.
