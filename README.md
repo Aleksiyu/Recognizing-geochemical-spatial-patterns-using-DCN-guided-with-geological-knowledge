@@ -27,3 +27,14 @@ research/GK-DCN/
 ├── DCN_CAM.py               #  Perform Grad-CAM visualization on DCN for model interpretation
 ├── DCN_Offset.py            #  Visualization script for the DCN model. Used to extract and plot the sampling point offset fields learned by the DCN.
 ```
+research/New_data/
+├── Geochemical_data/        #  TIF images containing 39 geochemical elements, used to generate geochemical data layer
+├── coordinate/              #  Two TIF images representing the x and y coordinates
+├── label/                   #  TIF images of positive and negative samples
+├── Geochemical_array.tif    #  Geochemical data layer, used for model prediction
+├── train_data.npy           #  Training set data, used as model input, used as model input
+├── train_labels.npy         #  Training dataset labels, used as model input
+├── verify_data.npy          #  Validation set data, used as model input
+├── verify_labels.npy        #  Validation set data labels, used as model input
+├── geology_weights.tif      #  TIF map of fracture weights, used to incorporate into the model loss function
+```
